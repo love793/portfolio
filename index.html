@@ -450,6 +450,34 @@ var GROUPS = [
           "一期最小闭环：进 / 销 / 存三张主表可跑通"
         ],
         link: "", linkText: "规划中"
+      },
+      {
+        icon: "🏥", color: "#0891b2", badge: "plan", badgeText: "规划中",
+        name: "智慧医疗 · RAG Agent",
+        role: "产品规划 · 前端",
+        desc: "面向患者与家属的医疗问答助手：基于 RAG 检索增强生成，让 AI 回答有据可查，缓解问诊前的信息焦虑。",
+        tags: ["RAG", "Agent", "Vue 3", "TypeScript", "医疗问答"],
+        highlights: [
+          "技术栈：Vue 3 + TypeScript 前端，RAG 检索增强生成 + Agent 任务编排",
+          "医学知识库向量检索，答案附引用来源，可溯源、不胡编",
+          "多轮对话上下文管理，症状描述 → 就诊建议 → 日常注意事项",
+          "一期最小闭环：单科室知识库 + 问答链路跑通"
+        ],
+        link: "", linkText: "规划中"
+      },
+      {
+        icon: "🧭", color: "#65a30d", badge: "plan", badgeText: "规划中",
+        name: "智能旅行规划",
+        role: "产品规划 · 前端",
+        desc: "个性化旅行规划工具：输入预算、天数与偏好，一键生成可执行行程单，行中可动态调整。",
+        tags: ["Vue 3", "TypeScript", "地图 POI", "行程编排", "ECharts"],
+        highlights: [
+          "技术栈：Vue 3 + TypeScript + 地图 POI 数据 + ECharts 可视化",
+          "多维偏好输入：预算 / 天数 / 人群 / 节奏，生成日程时间轴",
+          "行程地图可视化：每日路线串联 POI，交通耗时自动估算",
+          "一期最小闭环：单城市 3 日行程生成与调整"
+        ],
+        link: "", linkText: "规划中"
       }
     ]
   },
@@ -472,9 +500,9 @@ var GROUPS = [
       },
       {
         icon: "✅", color: "#059669",
-        name: "TodoList 待办事项 web 端",
+        name: "TodoList",
         role: "全栈开发",
-        desc: "Vue 3 + Go Gin 全栈待办事项管理应用：注册登录、JWT 认证、增删改查、关键词搜索，Redis 缓存提性能。",
+        desc: "Vue 3 + Go Gin 待办事项管理应用：注册登录、JWT 认证、增删改查、关键词搜索，Redis 缓存提性能。",
         tags: ["Vue 3", "Go", "Gin", "JWT", "MySQL", "Redis"],
         highlights: [
           "JWT 登录鉴权 + 用户体系",
@@ -510,6 +538,21 @@ var GROUPS = [
           "全局快捷键唤起，快速搜索历史剪贴内容，一键粘贴复用"
         ],
         link: "https://gitcode.com/weixin_62355943/ClipNova", linkText: "查看仓库"
+      },
+      {
+        icon: "🐱", color: "#db2777", badge: "dev", badgeText: "开发中",
+        name: "灵伴 MemoArk · SpiritBuddy",
+        role: "全栈开发 · 桌面应用",
+        desc: "带桌面宠物的「本地优先」记忆训练记事本：输入 → 解析 → 训练 → 反馈，宠物情感与学习进度深度联动。",
+        tags: ["Electron", "Vue 3", "TypeScript", "Tiptap", "SQLite"],
+        highlights: [
+          "记忆解析三层架构：正则规则引擎 70% + 轻量词库 20% + 手动划词兑底 10%，抽象 ITextParser 接口预留 AI 升级",
+          "记忆训练闭环：挖空卡片 + 三档评价 + 自实现艾宾浩斯遗忘曲线调度，到点推送复习",
+          "宠物养成系统：完成待办宠物开心、忘记复习会失落，Lottie 矢量动画 5 种状态无缝切换，支持换肤",
+          "本地数据主权：better-sqlite3 纯本地存储，.memoarchive（zlib + AES-256）加密包跨设备迁移",
+          "桌面悬浮窗：透明窗口置顶 + 事件穿透 + 闪念胶囊快速记录，Pinia 状态管理 + UnoCSS 主题切换"
+        ],
+        link: "", linkText: "开发中"
       }
     ]
   },
