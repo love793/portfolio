@@ -759,6 +759,10 @@ document.getElementById("proj-count").textContent = total + " 个项目";
   if(el) el.textContent = n + " 项技术";
 })();
 
+/* ===== 图片 CDN（jsDelivr 加速 GitHub 仓库；改回相对路径只需设为 ""） ===== */
+var IMG_CDN = "https://cdn.jsdelivr.net/gh/love793/portfolio@master/";
+function cdn(path){ return IMG_CDN ? IMG_CDN + path : path; }
+
 /* ===== 弹窗 ===== */
 var mask = document.getElementById("modal");
 var closeBtn = document.getElementById("modal-close");
@@ -771,7 +775,7 @@ function openModal(p){
   body.innerHTML = "<p>"+p.desc+"</p>" +
     (p.highlights ? "<h4>项目亮点</h4><ul>"+p.highlights.map(function(h){return "<li>"+h+"</li>";}).join("")+"</ul>" : "") +
     (p.shots && p.shots.length ? '<h4>运行截图</h4><div class="shots">'+
-      p.shots.map(function(s){return '<div class="shot-item"><img data-full="'+s.full+'" src="'+s.thumb+'" alt="'+p.name+' 运行截图" loading="lazy"><div class="shot-skeleton"><div class="shot-spinner"></div></div></div>';}).join("")+'</div>' : "");
+      p.shots.map(function(s){return '<div class="shot-item"><img data-full="'+cdn(s.full)+'" src="'+cdn(s.thumb)+'" alt="'+p.name+' 运行截图" loading="lazy"><div class="shot-skeleton"><div class="shot-spinner"></div></div></div>';}).join("")+'</div>' : "");
   document.getElementById("m-tags").innerHTML = p.tags.map(function(t){return "<span>"+t+"</span>";}).join("");
   var links = document.getElementById("m-links");
   links.innerHTML = "";
@@ -812,8 +816,7 @@ document.getElementById("m-body").addEventListener("click", function(e){
   if(t && t.tagName === "IMG" && t.parentElement && t.parentElement.className === "shot-item"){
     openLightbox(t.getAttribute("data-full") || t.src);
   }
-});
-/* 缩略图加载完成淡入 */
+});/* 缩略图加载完成淡入 */
 document.getElementById("m-body").addEventListener("load", function(e){
   if(e.target && e.target.tagName === "IMG") e.target.classList.add("loaded");
 }, true);
