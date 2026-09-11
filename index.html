@@ -327,6 +327,25 @@
     .modal{padding:24px;}
     .shots{grid-template-columns:repeat(2,1fr);}
   }
+
+  /* ===== 滚动条美化 ===== */
+  /* WebKit / Chromium（Chrome、Edge 等） */
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{
+    background:rgba(37,99,235,.18);border-radius:999px;
+    border:2px solid transparent;background-clip:padding-box;
+    transition:background .2s;
+  }
+  ::-webkit-scrollbar-thumb:hover{background:rgba(37,99,235,.35);background-clip:padding-box;}
+  ::-webkit-scrollbar-corner{background:transparent;}
+  /* 弹窗内滚动条更细腻 */
+  .modal::-webkit-scrollbar{width:6px;}
+  .modal::-webkit-scrollbar-thumb{background:rgba(37,99,235,.14);}
+  .modal::-webkit-scrollbar-thumb:hover{background:rgba(37,99,235,.28);}
+  /* Firefox */
+  html{scrollbar-width:thin;scrollbar-color:rgba(37,99,235,.35) transparent;}
+  .modal{scrollbar-width:thin;scrollbar-color:rgba(37,99,235,.25) transparent;}
 </style>
 </head>
 <body>
