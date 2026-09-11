@@ -263,11 +263,43 @@
   }
   .modal .links a:hover{background:var(--primary-soft);}
 
+  /* ===== 运行截图 ===== */
+  .shots{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:10px;margin-top:10px;
+  }
+  .shots img{
+    width:100%;height:110px;object-fit:cover;object-position:top;
+    border-radius:8px;border:1px solid rgba(37,99,235,.1);
+    cursor:zoom-in;transition:transform .2s,box-shadow .2s;
+    background:#f5f7fa;
+  }
+  .shots img:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(37,99,235,.15);}
+
+  /* ===== 灯箱 ===== */
+  .lightbox-mask{
+    position:fixed;inset:0;background:rgba(15,23,42,.82);z-index:1001;
+    display:flex;align-items:center;justify-content:center;padding:32px;
+    opacity:0;visibility:hidden;transition:opacity .25s;
+  }
+  .lightbox-mask.show{opacity:1;visibility:visible;}
+  .lightbox-mask img{
+    max-width:92%;max-height:88%;border-radius:10px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45);background:#fff;
+  }
+  .lightbox-close{
+    position:absolute;top:20px;right:24px;width:38px;height:38px;
+    border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;
+    font-size:17px;cursor:pointer;transition:background .2s;
+  }
+  .lightbox-close:hover{background:rgba(255,255,255,.28);}
+
   @media (max-width:640px){
     .hero{padding:64px 0 40px;}
     .hero h1{font-size:30px;}
     .nav ul{gap:16px;}
     .modal{padding:24px;}
+    .shots{grid-template-columns:repeat(2,1fr);}
   }
 </style>
 </head>
@@ -391,6 +423,12 @@
   </div>
 </div>
 
+<!-- 运行图灯箱 -->
+<div class="lightbox-mask" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="关闭">✕</button>
+  <img id="lightbox-img" alt="">
+</div>
+
 <script>
 /* ===== 项目数据（三大分类） ===== */
 var GROUPS = [
@@ -483,7 +521,8 @@ var GROUPS = [
           "深度对接 Jira、禅道、TAPD、飞书，离线草稿暂存 + 自动重试提交",
           "内置 OCR 辅助识别错误弹窗文本，本地 SQLite 加密存储"
         ],
-        link: "https://gitcode.com/weixin_62355943/BugFast", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/BugFast", linkText: "查看仓库",
+        shots: ["BugFast/2a389dd8-73a8-47cf-b626-a10ccc44610d.png", "BugFast/67cfde86-27d1-40c0-a100-a7f02897d244.png", "BugFast/bdb86938-7c54-48f0-990b-627e9941370b.png", "BugFast/cdc51e7b-1fb8-4f31-b725-75e3c34e3600.png", "BugFast/d0e9759d-93fa-4f70-8b97-2f952afd4907.png"]
       },
       {
         icon: "✅", color: "#059669",
@@ -510,7 +549,8 @@ var GROUPS = [
           "多状态订单物流实时追踪，微信 / 支付宝安全支付接口",
           "配套后端仓库 youngshop-server 提供接口支持"
         ],
-        link: "https://gitcode.com/weixin_62355943/young-shop", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/young-shop", linkText: "查看仓库",
+        shots: ["即刻购/src_assets_images_youngshophome.png", "即刻购/src_assets_images_youngshopcate.png", "即刻购/src_assets_images_youngshopproduct.png"]
       },
       {
         icon: "📋", color: "#6366f1",
@@ -524,7 +564,8 @@ var GROUPS = [
           "本地优先架构，数据不出设备，隐私安全有保障",
           "全局快捷键唤起，快速搜索历史剪贴内容，一键粘贴复用"
         ],
-        link: "https://gitcode.com/weixin_62355943/ClipNova", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/ClipNova", linkText: "查看仓库",
+        shots: ["ClipNova/c48d3168-5b40-45a9-bdeb-18d8c073d1a6.png", "ClipNova/cb3cbd01-a61f-44ad-9e07-ae5d6dee2069.png"]
       },
       {
         icon: "🐱", color: "#db2777", badge: "dev", badgeText: "开发中",
@@ -571,7 +612,8 @@ var GROUPS = [
           "「光影日历」记录观影足迹，「电影基因」按偏好智能匹配佳片",
           "「同好圈」互动讨论"
         ],
-        link: "https://gitcode.com/weixin_62355943/move-project", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/move-project", linkText: "查看仓库",
+        shots: ["帧选/src_assets_我的资源_moviehome.png", "帧选/src_assets_我的资源_movievideo.png", "帧选/src_assets_我的资源_moviezuowei.png", "帧选/4e7d3050f1de4cf94e33ec78679ff821.jpg"]
       },
       {
         icon: "🍵", color: "#0d9488",
@@ -584,7 +626,8 @@ var GROUPS = [
           "多人拼单自动计算人均价，拼单房间分享好友快速凑单免运费",
           "历史订单「再来一单」快捷复购 + 新品打卡测评墙"
         ],
-        link: "https://gitcode.com/weixin_62355943/yuecha", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/yuecha", linkText: "查看仓库",
+        shots: ["茶憩一刻/miniprogram_assets_images_yuechahome.png", "茶憩一刻/miniprogram_assets_images_yuechacate.png", "茶憩一刻/miniprogram_assets_images_yuechapro.png"]
       },
       {
         icon: "📖", color: "#334155",
@@ -597,7 +640,8 @@ var GROUPS = [
           "智能分章 + 字体 / 背景 / 翻页动画等十余种调节选项",
           "无广告纯享阅读体验"
         ],
-        link: "https://gitcode.com/weixin_62355943/fudao-read", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/fudao-read", linkText: "查看仓库",
+        shots: ["墨读/src_assets_images_fudaohome.png", "墨读/src_assets_images_fudaoread.png", "墨读/src_assets_images_fudaocate.png", "墨读/src_assets_images_fudaolisten.png", "墨读/src_assets_images_fudaodetail.png"]
       },
       {
         icon: "🍳", color: "#ea580c",
@@ -611,7 +655,22 @@ var GROUPS = [
           "个人菜谱本记录独门配方，一键生成购物清单",
           "Vue 3 + Go 前后端分离，移动端与 Web 端自适应"
         ],
-        link: "https://gitcode.com/weixin_62355943/eha-food", linkText: "查看仓库"
+        link: "https://gitcode.com/weixin_62355943/eha-food", linkText: "查看仓库",
+        shots: ["知味厨房/src_assets_images_erhahome.png", "知味厨房/src_assets_images_images_erha.png", "知味厨房/src_assets_images_images_erhepp.png"]
+      },
+      {
+        icon: "🎵", color: "#8b5cf6",
+        name: "音悦流 · 智能音乐播放",
+        role: "前端开发",
+        desc: "融合智能推荐与社交互动的轻量级音乐播放平台：个性化歌单、每日推荐、评论互动、沉浸式播放页。",
+        tags: ["Vue", "音乐播放", "智能推荐", "社交互动"],
+        highlights: [
+          "个性化歌单与每日推荐，越听越懂你",
+          "评论互动与歌单分享，发现同好听友",
+          "沉浸式播放页：封面旋转、歌词滚动、迷你悬浮条"
+        ],
+        link: "https://gitcode.com/weixin_62355943/shuhai-music", linkText: "查看仓库",
+        shots: ["音悦流/src_assets_images_shuhaimusichome.png", "音悦流/src_assets_images_shuhaimusic01.png", "音悦流/src_assets_images_shuhaimusic02.png"]
       }
     ]
   }
@@ -664,7 +723,9 @@ function openModal(p){
   document.getElementById("m-role").textContent = p.role || p.name;
   var body = document.getElementById("m-body");
   body.innerHTML = "<p>"+p.desc+"</p>" +
-    (p.highlights ? "<h4>项目亮点</h4><ul>"+p.highlights.map(function(h){return "<li>"+h+"</li>";}).join("")+"</ul>" : "");
+    (p.highlights ? "<h4>项目亮点</h4><ul>"+p.highlights.map(function(h){return "<li>"+h+"</li>";}).join("")+"</ul>" : "") +
+    (p.shots && p.shots.length ? '<h4>运行截图</h4><div class="shots">'+
+      p.shots.map(function(s){return '<img src="'+s+'" alt="'+p.name+' 运行截图" loading="lazy">';}).join("")+'</div>' : "");
   document.getElementById("m-tags").innerHTML = p.tags.map(function(t){return "<span>"+t+"</span>";}).join("");
   var links = document.getElementById("m-links");
   links.innerHTML = "";
@@ -688,6 +749,19 @@ document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeMo
 /* ===== 页脚链接 ===== */
 document.getElementById("gitcode-link").href = "https://gitcode.com/weixin_62355943";
 document.getElementById("gitcode-link").textContent = "weixin_62355943";
+
+/* ===== 运行图灯箱 ===== */
+var lightbox = document.getElementById("lightbox");
+var lightboxImg = document.getElementById("lightbox-img");
+document.getElementById("m-body").addEventListener("click", function(e){
+  if(e.target && e.target.tagName === "IMG" && e.target.parentElement && e.target.parentElement.className === "shots"){
+    lightboxImg.src = e.target.src;
+    lightbox.classList.add("show");
+  }
+});
+document.getElementById("lightbox-close").addEventListener("click", function(){ lightbox.classList.remove("show"); });
+lightbox.addEventListener("click", function(e){ if(e.target === lightbox) lightbox.classList.remove("show"); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape") lightbox.classList.remove("show"); });
 </script>
 </body>
 </html>
