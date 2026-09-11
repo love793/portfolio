@@ -271,9 +271,11 @@
   .shots img{
     width:100%;height:110px;object-fit:cover;object-position:top;
     border-radius:8px;border:1px solid rgba(37,99,235,.1);
-    cursor:zoom-in;transition:transform .2s,box-shadow .2s;
-    background:#f5f7fa;
+    cursor:zoom-in;transition:transform .2s,box-shadow .2s,opacity .35s;
+    background:#eef2f8;
+    opacity:0;
   }
+  .shots img.loaded{opacity:1;}
   .shots img:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(37,99,235,.15);}
 
   /* ===== 灯箱 ===== */
@@ -286,7 +288,9 @@
   .lightbox-mask img{
     max-width:92%;max-height:88%;border-radius:10px;
     box-shadow:0 24px 60px rgba(0,0,0,.45);background:#fff;
+    opacity:0;transition:opacity .3s;
   }
+  .lightbox-mask img.ready{opacity:1;}
   .lightbox-close{
     position:absolute;top:20px;right:24px;width:38px;height:38px;
     border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;
@@ -522,7 +526,7 @@ var GROUPS = [
           "内置 OCR 辅助识别错误弹窗文本，本地 SQLite 加密存储"
         ],
         link: "https://gitcode.com/weixin_62355943/BugFast", linkText: "查看仓库",
-        shots: ["BugFast/2a389dd8-73a8-47cf-b626-a10ccc44610d.png", "BugFast/67cfde86-27d1-40c0-a100-a7f02897d244.png", "BugFast/bdb86938-7c54-48f0-990b-627e9941370b.png", "BugFast/cdc51e7b-1fb8-4f31-b725-75e3c34e3600.png", "BugFast/d0e9759d-93fa-4f70-8b97-2f952afd4907.png"]
+        shots: [{ thumb: "BugFast/_opt/2a389dd8-73a8-47cf-b626-a10ccc44610d.thumb.jpg", full: "BugFast/_opt/2a389dd8-73a8-47cf-b626-a10ccc44610d.full.jpg" }, { thumb: "BugFast/_opt/67cfde86-27d1-40c0-a100-a7f02897d244.thumb.jpg", full: "BugFast/_opt/67cfde86-27d1-40c0-a100-a7f02897d244.full.jpg" }, { thumb: "BugFast/_opt/bdb86938-7c54-48f0-990b-627e9941370b.thumb.jpg", full: "BugFast/_opt/bdb86938-7c54-48f0-990b-627e9941370b.full.jpg" }, { thumb: "BugFast/_opt/cdc51e7b-1fb8-4f31-b725-75e3c34e3600.thumb.jpg", full: "BugFast/_opt/cdc51e7b-1fb8-4f31-b725-75e3c34e3600.full.jpg" }, { thumb: "BugFast/_opt/d0e9759d-93fa-4f70-8b97-2f952afd4907.thumb.jpg", full: "BugFast/_opt/d0e9759d-93fa-4f70-8b97-2f952afd4907.full.jpg" }]
       },
       {
         icon: "✅", color: "#059669",
@@ -550,7 +554,7 @@ var GROUPS = [
           "配套后端仓库 youngshop-server 提供接口支持"
         ],
         link: "https://gitcode.com/weixin_62355943/young-shop", linkText: "查看仓库",
-        shots: ["即刻购/src_assets_images_youngshophome.png", "即刻购/src_assets_images_youngshopcate.png", "即刻购/src_assets_images_youngshopproduct.png"]
+        shots: [{ thumb: "即刻购/_opt/src_assets_images_youngshophome.thumb.jpg", full: "即刻购/_opt/src_assets_images_youngshophome.full.jpg" }, { thumb: "即刻购/_opt/src_assets_images_youngshopcate.thumb.jpg", full: "即刻购/_opt/src_assets_images_youngshopcate.full.jpg" }, { thumb: "即刻购/_opt/src_assets_images_youngshopproduct.thumb.jpg", full: "即刻购/_opt/src_assets_images_youngshopproduct.full.jpg" }]
       },
       {
         icon: "📋", color: "#6366f1",
@@ -565,7 +569,7 @@ var GROUPS = [
           "全局快捷键唤起，快速搜索历史剪贴内容，一键粘贴复用"
         ],
         link: "https://gitcode.com/weixin_62355943/ClipNova", linkText: "查看仓库",
-        shots: ["ClipNova/c48d3168-5b40-45a9-bdeb-18d8c073d1a6.png", "ClipNova/cb3cbd01-a61f-44ad-9e07-ae5d6dee2069.png"]
+        shots: [{ thumb: "ClipNova/_opt/c48d3168-5b40-45a9-bdeb-18d8c073d1a6.thumb.jpg", full: "ClipNova/_opt/c48d3168-5b40-45a9-bdeb-18d8c073d1a6.full.jpg" }, { thumb: "ClipNova/_opt/cb3cbd01-a61f-44ad-9e07-ae5d6dee2069.thumb.jpg", full: "ClipNova/_opt/cb3cbd01-a61f-44ad-9e07-ae5d6dee2069.full.jpg" }]
       },
       {
         icon: "🐱", color: "#db2777", badge: "dev", badgeText: "开发中",
@@ -613,7 +617,7 @@ var GROUPS = [
           "「同好圈」互动讨论"
         ],
         link: "https://gitcode.com/weixin_62355943/move-project", linkText: "查看仓库",
-        shots: ["帧选/src_assets_我的资源_moviehome.png", "帧选/src_assets_我的资源_movievideo.png", "帧选/src_assets_我的资源_moviezuowei.png", "帧选/4e7d3050f1de4cf94e33ec78679ff821.jpg"]
+        shots: [{ thumb: "帧选/_opt/src_assets_我的资源_moviehome.thumb.jpg", full: "帧选/_opt/src_assets_我的资源_moviehome.full.jpg" }, { thumb: "帧选/_opt/src_assets_我的资源_movievideo.thumb.jpg", full: "帧选/_opt/src_assets_我的资源_movievideo.full.jpg" }, { thumb: "帧选/_opt/src_assets_我的资源_moviezuowei.thumb.jpg", full: "帧选/_opt/src_assets_我的资源_moviezuowei.full.jpg" }, { thumb: "帧选/_opt/4e7d3050f1de4cf94e33ec78679ff821.thumb.jpg", full: "帧选/_opt/4e7d3050f1de4cf94e33ec78679ff821.full.jpg" }]
       },
       {
         icon: "🍵", color: "#0d9488",
@@ -627,7 +631,7 @@ var GROUPS = [
           "历史订单「再来一单」快捷复购 + 新品打卡测评墙"
         ],
         link: "https://gitcode.com/weixin_62355943/yuecha", linkText: "查看仓库",
-        shots: ["茶憩一刻/miniprogram_assets_images_yuechahome.png", "茶憩一刻/miniprogram_assets_images_yuechacate.png", "茶憩一刻/miniprogram_assets_images_yuechapro.png"]
+        shots: [{ thumb: "茶憩一刻/_opt/miniprogram_assets_images_yuechahome.thumb.jpg", full: "茶憩一刻/_opt/miniprogram_assets_images_yuechahome.full.jpg" }, { thumb: "茶憩一刻/_opt/miniprogram_assets_images_yuechacate.thumb.jpg", full: "茶憩一刻/_opt/miniprogram_assets_images_yuechacate.full.jpg" }, { thumb: "茶憩一刻/_opt/miniprogram_assets_images_yuechapro.thumb.jpg", full: "茶憩一刻/_opt/miniprogram_assets_images_yuechapro.full.jpg" }]
       },
       {
         icon: "📖", color: "#334155",
@@ -641,7 +645,7 @@ var GROUPS = [
           "无广告纯享阅读体验"
         ],
         link: "https://gitcode.com/weixin_62355943/fudao-read", linkText: "查看仓库",
-        shots: ["墨读/src_assets_images_fudaohome.png", "墨读/src_assets_images_fudaoread.png", "墨读/src_assets_images_fudaocate.png", "墨读/src_assets_images_fudaolisten.png", "墨读/src_assets_images_fudaodetail.png"]
+        shots: [{ thumb: "墨读/_opt/src_assets_images_fudaohome.thumb.jpg", full: "墨读/_opt/src_assets_images_fudaohome.full.jpg" }, { thumb: "墨读/_opt/src_assets_images_fudaoread.thumb.jpg", full: "墨读/_opt/src_assets_images_fudaoread.full.jpg" }, { thumb: "墨读/_opt/src_assets_images_fudaocate.thumb.jpg", full: "墨读/_opt/src_assets_images_fudaocate.full.jpg" }, { thumb: "墨读/_opt/src_assets_images_fudaolisten.thumb.jpg", full: "墨读/_opt/src_assets_images_fudaolisten.full.jpg" }, { thumb: "墨读/_opt/src_assets_images_fudaodetail.thumb.jpg", full: "墨读/_opt/src_assets_images_fudaodetail.full.jpg" }]
       },
       {
         icon: "🍳", color: "#ea580c",
@@ -656,7 +660,7 @@ var GROUPS = [
           "Vue 3 + Go 前后端分离，移动端与 Web 端自适应"
         ],
         link: "https://gitcode.com/weixin_62355943/eha-food", linkText: "查看仓库",
-        shots: ["知味厨房/src_assets_images_erhahome.png", "知味厨房/src_assets_images_images_erha.png", "知味厨房/src_assets_images_images_erhepp.png"]
+        shots: [{ thumb: "知味厨房/_opt/src_assets_images_erhahome.thumb.jpg", full: "知味厨房/_opt/src_assets_images_erhahome.full.jpg" }, { thumb: "知味厨房/_opt/src_assets_images_images_erha.thumb.jpg", full: "知味厨房/_opt/src_assets_images_images_erha.full.jpg" }, { thumb: "知味厨房/_opt/src_assets_images_images_erhepp.thumb.jpg", full: "知味厨房/_opt/src_assets_images_images_erhepp.full.jpg" }]
       },
       {
         icon: "🎵", color: "#8b5cf6",
@@ -670,7 +674,7 @@ var GROUPS = [
           "沉浸式播放页：封面旋转、歌词滚动、迷你悬浮条"
         ],
         link: "https://gitcode.com/weixin_62355943/shuhai-music", linkText: "查看仓库",
-        shots: ["音悦流/src_assets_images_shuhaimusichome.png", "音悦流/src_assets_images_shuhaimusic01.png", "音悦流/src_assets_images_shuhaimusic02.png"]
+        shots: [{ thumb: "音悦流/_opt/src_assets_images_shuhaimusichome.thumb.jpg", full: "音悦流/_opt/src_assets_images_shuhaimusichome.full.jpg" }, { thumb: "音悦流/_opt/src_assets_images_shuhaimusic01.thumb.jpg", full: "音悦流/_opt/src_assets_images_shuhaimusic01.full.jpg" }, { thumb: "音悦流/_opt/src_assets_images_shuhaimusic02.thumb.jpg", full: "音悦流/_opt/src_assets_images_shuhaimusic02.full.jpg" }]
       }
     ]
   }
@@ -725,7 +729,7 @@ function openModal(p){
   body.innerHTML = "<p>"+p.desc+"</p>" +
     (p.highlights ? "<h4>项目亮点</h4><ul>"+p.highlights.map(function(h){return "<li>"+h+"</li>";}).join("")+"</ul>" : "") +
     (p.shots && p.shots.length ? '<h4>运行截图</h4><div class="shots">'+
-      p.shots.map(function(s){return '<img src="'+s+'" alt="'+p.name+' 运行截图" loading="lazy">';}).join("")+'</div>' : "");
+      p.shots.map(function(s){return '<img data-full="'+s.full+'" src="'+s.thumb+'" alt="'+p.name+' 运行截图" loading="lazy">';}).join("")+'</div>' : "");
   document.getElementById("m-tags").innerHTML = p.tags.map(function(t){return "<span>"+t+"</span>";}).join("");
   var links = document.getElementById("m-links");
   links.innerHTML = "";
@@ -753,11 +757,26 @@ document.getElementById("gitcode-link").textContent = "weixin_62355943";
 /* ===== 运行图灯箱 ===== */
 var lightbox = document.getElementById("lightbox");
 var lightboxImg = document.getElementById("lightbox-img");
+var lightboxTimer = null;
+function openLightbox(src){
+  lightboxImg.classList.remove("ready");
+  lightboxImg.src = src;
+  lightbox.classList.add("show");
+}
 document.getElementById("m-body").addEventListener("click", function(e){
-  if(e.target && e.target.tagName === "IMG" && e.target.parentElement && e.target.parentElement.className === "shots"){
-    lightboxImg.src = e.target.src;
-    lightbox.classList.add("show");
+  var t = e.target;
+  if(t && t.tagName === "IMG" && t.parentElement && t.parentElement.className === "shots"){
+    openLightbox(t.getAttribute("data-full") || t.src);
   }
+});
+/* 缩略图加载完成淡入 */
+document.getElementById("m-body").addEventListener("load", function(e){
+  if(e.target && e.target.tagName === "IMG") e.target.classList.add("loaded");
+}, true);
+/* 灯箱大图加载完成淡入 */
+lightboxImg.addEventListener("load", function(){
+  clearTimeout(lightboxTimer);
+  lightboxTimer = setTimeout(function(){ lightboxImg.classList.add("ready"); }, 0);
 });
 document.getElementById("lightbox-close").addEventListener("click", function(){ lightbox.classList.remove("show"); });
 lightbox.addEventListener("click", function(e){ if(e.target === lightbox) lightbox.classList.remove("show"); });
