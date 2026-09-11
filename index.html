@@ -268,15 +268,30 @@
     display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
     gap:10px;margin-top:10px;
   }
-  .shots img{
-    width:100%;height:110px;object-fit:cover;object-position:top;
-    border-radius:8px;border:1px solid rgba(37,99,235,.1);
-    cursor:zoom-in;transition:transform .2s,box-shadow .2s,opacity .35s;
-    background:#eef2f8;
-    opacity:0;
+  .shot-item{position:relative;border-radius:8px;overflow:hidden;
+    border:1px solid rgba(37,99,235,.1);background:#eef2f8;min-height:110px;}
+  .shot-item .shot-skeleton{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(110deg,#eef2f8 30%,#e2e9f5 50%,#eef2f8 70%);
+    background-size:200% 100%;animation:shimmer 1.4s infinite;
+    transition:opacity .3s;z-index:1;
   }
-  .shots img.loaded{opacity:1;}
-  .shots img:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(37,99,235,.15);}
+  .shot-item .shot-spinner{
+    width:24px;height:24px;border-radius:50%;
+    border:3px solid rgba(37,99,235,.2);border-top-color:var(--primary);
+    animation:spin .8s linear infinite;
+  }
+  .shot-item img{
+    width:100%;height:110px;object-fit:cover;object-position:top;
+    border-radius:8px;display:block;position:relative;z-index:2;
+    cursor:zoom-in;transition:transform .2s,box-shadow .2s,opacity .35s;
+    background:transparent;opacity:0;
+  }
+  .shot-item img.loaded{opacity:1;}
+  .shot-item img:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(37,99,235,.15);}
+  .shot-item img.loaded ~ .shot-skeleton{opacity:0;pointer-events:none;}
+  @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+  @keyframes spin{to{transform:rotate(360deg);}}
 
   /* ===== 灯箱 ===== */
   .lightbox-mask{
@@ -291,6 +306,13 @@
     opacity:0;transition:opacity .3s;
   }
   .lightbox-mask img.ready{opacity:1;}
+  .lightbox-loading{
+    position:absolute;width:48px;height:48px;border-radius:50%;
+    border:4px solid rgba(255,255,255,.18);border-top-color:#fff;
+    animation:spin .9s linear infinite;pointer-events:none;
+  }
+  .lightbox-mask img.ready ~ .lightbox-loading,
+  .lightbox-mask .lightbox-loading.hidden{display:none;}
   .lightbox-close{
     position:absolute;top:20px;right:24px;width:38px;height:38px;
     border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;
@@ -431,6 +453,7 @@
 <div class="lightbox-mask" id="lightbox">
   <button class="lightbox-close" id="lightbox-close" aria-label="关闭">✕</button>
   <img id="lightbox-img" alt="">
+  <div class="lightbox-loading" id="lightbox-loading"></div>
 </div>
 
 <script>
@@ -729,7 +752,7 @@ function openModal(p){
   body.innerHTML = "<p>"+p.desc+"</p>" +
     (p.highlights ? "<h4>项目亮点</h4><ul>"+p.highlights.map(function(h){return "<li>"+h+"</li>";}).join("")+"</ul>" : "") +
     (p.shots && p.shots.length ? '<h4>运行截图</h4><div class="shots">'+
-      p.shots.map(function(s){return '<img data-full="'+s.full+'" src="'+s.thumb+'" alt="'+p.name+' 运行截图" loading="lazy">';}).join("")+'</div>' : "");
+      p.shots.map(function(s){return '<div class="shot-item"><img data-full="'+s.full+'" src="'+s.thumb+'" alt="'+p.name+' 运行截图" loading="lazy"><div class="shot-skeleton"><div class="shot-spinner"></div></div></div>';}).join("")+'</div>' : "");
   document.getElementById("m-tags").innerHTML = p.tags.map(function(t){return "<span>"+t+"</span>";}).join("");
   var links = document.getElementById("m-links");
   links.innerHTML = "";
@@ -757,15 +780,17 @@ document.getElementById("gitcode-link").textContent = "weixin_62355943";
 /* ===== 运行图灯箱 ===== */
 var lightbox = document.getElementById("lightbox");
 var lightboxImg = document.getElementById("lightbox-img");
+var lightboxLoading = document.getElementById("lightbox-loading");
 var lightboxTimer = null;
 function openLightbox(src){
   lightboxImg.classList.remove("ready");
+  if(lightboxLoading) lightboxLoading.classList.remove("hidden");
   lightboxImg.src = src;
   lightbox.classList.add("show");
 }
 document.getElementById("m-body").addEventListener("click", function(e){
   var t = e.target;
-  if(t && t.tagName === "IMG" && t.parentElement && t.parentElement.className === "shots"){
+  if(t && t.tagName === "IMG" && t.parentElement && t.parentElement.className === "shot-item"){
     openLightbox(t.getAttribute("data-full") || t.src);
   }
 });
@@ -776,6 +801,7 @@ document.getElementById("m-body").addEventListener("load", function(e){
 /* 灯箱大图加载完成淡入 */
 lightboxImg.addEventListener("load", function(){
   clearTimeout(lightboxTimer);
+  if(lightboxLoading) lightboxLoading.classList.add("hidden");
   lightboxTimer = setTimeout(function(){ lightboxImg.classList.add("ready"); }, 0);
 });
 document.getElementById("lightbox-close").addEventListener("click", function(){ lightbox.classList.remove("show"); });
